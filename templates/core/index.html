@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+  <div class="span8 search-column">
+    <div>
+      <form class="form-search">
+        <input id="subreddit-search" class="input-xlarge search-query"
+               type="text" placeholder="Search subreddits">
+      </form>
+    </div>
+    <div id="search-results">
+
+    </div>
+  </div>
+  <div class="span3">
+    <h3>My subreddits</h3>
+    <ul class="my-subreddits">
+      {% for subreddit in user_subreddits %}
+        <li>
+          <a href="http://reddit.com/r/{{ subreddit.name }}" target="_blank"
+             class="subreddit">
+            /r/{{ subreddit.name }}
+          </a>        
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock content %}
+
+{% block jstemplates %}
+<script type="text/template" id="search-result-template">
+  <div class="search-result well" id="<%= name %>">
+    <div>
+      <div class="subreddit-link pull-left">
+        <a href="http://reddit.com/r/<%= name %>" target="_blank"
+           class="subreddit">
+          /r/<%= name %>
+        </a>        
+      </div>
+
+      <div class="pull-right">
+        <button class="btn subreddit-get-details">
+          Details
+        </button>
+        <button class="btn btn-success subreddit-add">
+          <i class="icon-plus"/>
+          Add
+        </button>        
+      </div>
+    </div>
+    <div class="subreddit-description" style="display:none"></div>
+  </div>
+</script>
+
+<script type="text/template" id="my-subreddits-item-template">
+  <li>
+    <a href="http://reddit.com/r/<%= name %>" target="_blank"
+       class="subreddit">
+      /r/<%= name %>
+    </a>        
+  </li>
+</script>
+{% endblock jstemplates %}
