@@ -1,3 +1,5 @@
+import json
+
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -7,6 +9,8 @@ from django.contrib.auth.decorators import login_required
 from core.models import UserSubreddit
 
 import requests
+
+import praw
 
 @login_required
 def index(request):
@@ -35,3 +39,12 @@ def reddit_proxy(request):
     return HttpResponse(r.text,
                         status=r.status_code,
                         mimetype=r.headers['content-type'])
+
+
+@login_required
+def search_subreddit_names(request):
+    r = praw.Reddit(user_agent="weekkit")
+    subreddits = r.search_reddit_names(request.GET['query'])
+    names = [{'name': sr.display_name} for sr in subreddits]
+    return HttpResponse(json.dumps(names),
+                        mimetype="application/json")

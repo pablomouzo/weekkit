@@ -127,7 +127,7 @@ $(function() {
     search: function() {
       if (!this.SEARCH) { return; }
       this.SEARCH = false;
-      var url = "/reddit_proxy/api/subreddits_by_topic.json?query=" + this.QUERY;
+      var url = "/search_subreddit_names/?query=" + this.QUERY;
       $.getJSON(url, function(data) {
         searchResults.reset(data);
       });

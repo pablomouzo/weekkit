@@ -4,5 +4,7 @@ argparse==1.2.1
 django-appconf==0.5
 django-compressor==1.2
 django-debug-toolbar==0.9.4
+praw==1.0.7
 requests==0.14.0
+six==1.2.0
 wsgiref==0.1.2
