@@ -130,6 +130,7 @@ THIRD_PARTY_APPS = (
 
 OUR_APPS = (
     'core',
+    'friends',
 )
 
 INSTALLED_APPS = PREREQ_APPS + THIRD_PARTY_APPS + OUR_APPS
