@@ -38,10 +38,11 @@ class AddSubredditViewTest(TestCase):
                                              'johndoe')
         self.client.login(username='johndoe', password='johndoe')
     
-    def test_add_subreddit(self):
+    def test_add_subreddit_ajax(self):
         response = self.client.post("/add_subreddit/",
-                                    {'name': "testsubreddit"})
+                                    {'name': "testsubreddit"},
+                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         
         self.assertEquals(response.status_code, 201)
         # FIX: use assert not raise
-        self.user.usersubreddit_set.get(name="testsubreddit")
+        self.user.subreddits.get(name="testsubreddit")

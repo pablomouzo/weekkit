@@ -1,0 +1,11 @@
+<h3>My subreddits</h3>
+<ul class="my-subreddits" id="my-subreddits">
+  {% for subreddit in subreddits %}
+  <li>
+    <a href="http://reddit.com/r/{{ subreddit.name }}" target="_blank"
+       class="subreddit">
+      /r/{{ subreddit.name }}
+    </a>        
+  </li>
+  {% endfor %}
+</ul>

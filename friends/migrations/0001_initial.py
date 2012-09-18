@@ -8,13 +8,13 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'Friend'
-        db.create_table('friends_friend', (
+        # Adding model 'Friendship'
+        db.create_table('friends_friendship', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
+            ('user', self.gf('django.db.models.fields.related.ForeignKey')(related_name='friends', to=orm['auth.User'])),
             ('friend', self.gf('django.db.models.fields.related.ForeignKey')(related_name='+', to=orm['auth.User'])),
         ))
-        db.send_create_signal('friends', ['Friend'])
+        db.send_create_signal('friends', ['Friendship'])
 
         # Adding model 'FriendRequest'
         db.create_table('friends_friendrequest', (
@@ -26,8 +26,8 @@ class Migration(SchemaMigration):
 
 
     def backwards(self, orm):
-        # Deleting model 'Friend'
-        db.delete_table('friends_friend')
+        # Deleting model 'Friendship'
+        db.delete_table('friends_friendship')
 
         # Deleting model 'FriendRequest'
         db.delete_table('friends_friendrequest')
@@ -70,17 +70,17 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        'friends.friend': {
-            'Meta': {'object_name': 'Friend'},
-            'friend': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'+'", 'to': "orm['auth.User']"}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']"})
-        },
         'friends.friendrequest': {
             'Meta': {'object_name': 'FriendRequest'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'rfrom': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'friend_requests_received'", 'to': "orm['auth.User']"}),
             'rto': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'friend_requests_made'", 'to': "orm['auth.User']"})
+        },
+        'friends.friendship': {
+            'Meta': {'object_name': 'Friendship'},
+            'friend': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'+'", 'to': "orm['auth.User']"}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'friends'", 'to': "orm['auth.User']"})
         }
     }
 

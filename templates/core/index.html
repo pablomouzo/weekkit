@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block extra_head %}
+<script type="text/javascript" src="/static/app.js"></script>
+{% endblock extra_head %}
+
 {% block content %}
 <div class="row">
   <div class="span8 search-column">
@@ -12,17 +16,7 @@
     </div>
   </div>
   <div class="span3">
-    <h3>My subreddits</h3>
-    <ul class="my-subreddits" id="my-subreddits">
-      {% for subreddit in user_subreddits %}
-        <li>
-          <a href="http://reddit.com/r/{{ subreddit.name }}" target="_blank"
-             class="subreddit">
-            /r/{{ subreddit.name }}
-          </a>        
-        </li>
-      {% endfor %}
-    </ul>
+    {% include "core/includes/my_subreddit_list.html" with subreddits=user_subreddits%}
   </div>
 </div>
 {% endblock content %}
@@ -43,7 +37,7 @@
           Details
         </button>
         <button class="btn btn-success subreddit-add">
-          <i class="icon-plus"/>
+          <i class="icon-plus"></i>
           Add
         </button>        
       </div>

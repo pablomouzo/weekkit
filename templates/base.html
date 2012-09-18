@@ -14,7 +14,9 @@
     <script type="text/javascript"
             src="/static/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/static/django-ajax-post.js"></script>
-    <script type="text/javascript" src="/static/app.js"></script>
+
+    {% block extra_head %}
+    {% endblock extra_head %}
   </head>
   <body>
     <div class="container">

@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 
 class UserSubreddit(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, related_name="subreddits")
     name = models.CharField(max_length=200)
 
     class Meta:

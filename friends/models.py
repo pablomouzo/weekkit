@@ -2,16 +2,23 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class Friend(models.Model):
-    """ A user's friend
+class Friendship(models.Model):
+    """ A user's friendship
 
-    A friendship is represented by two of these objects
+    A complete friendship is represented by two of these objects
     """
-    user = models.ForeignKey(User, related_name="friends")
+    user = models.ForeignKey(User, related_name="friendships")
     friend = models.ForeignKey(User, related_name="+")
+
+    @classmethod
+    def create_friendship(cls, user1, user2):
+        """ Create a friendship between two users """
+        cls(user=user1, friend=user2).save()
+        cls(user=user2, friend=user1).save()
 
     def __unicode__(self):
         return str(self.friend)
+
 
 
 class FriendRequest(models.Model):

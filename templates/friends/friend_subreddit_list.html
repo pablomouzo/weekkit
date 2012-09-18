@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+  <div class="span6">
+    <h3>{{ friend.username }}'s subreddits</h3>
+    {% for subreddit in friend.subreddits.all %}
+      <div class="search-result well">
+        <div class="clearfix">
+          <div class="subreddit-link pull-left">
+            <a href="http://reddit.com/r/{{ subreddit.name }}" target="_blank"
+               class="subreddit">
+              /r/{{ subreddit.name }}
+            </a>
+          </div>
+
+          <div class="pull-right">
+            <form method="POST" action="/add_subreddit/">
+              {% csrf_token %}
+              <input type="hidden" name="name" value="{{ subreddit.name }}" />
+              <button type="submit" name="submit"
+                     class="btn btn-success subreddit-add">
+                <i class="icon-plus"></i>
+                Add
+              </button>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <p>
+        {{ friend.username }} has no subreddits selected.
+      </p>
+    {% endfor %}
+  </div>
+  <div class="span3">
+    {% include "core/includes/my_subreddit_list.html" with subreddits=user.subreddits.all %}
+  </div>
+</div>
+{% endblock content %}

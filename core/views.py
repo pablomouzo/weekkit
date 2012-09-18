@@ -1,7 +1,7 @@
 import json
 
 from django.http import HttpResponse
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 
 from django.contrib.auth.decorators import login_required
@@ -12,10 +12,11 @@ import requests
 
 import praw
 
+
 @login_required
 def index(request):
     return render_to_response("core/index.html",
-                              {'user_subreddits': request.user.usersubreddit_set.all()},
+                              {'user_subreddits': request.user.subreddits.all()},
                               context_instance=RequestContext(request))
 
 
@@ -26,7 +27,10 @@ def add_subreddit(request):
         name = request.POST['name']
         us = UserSubreddit(user=user, name=name)
         us.save()
-        return HttpResponse("", status=201)
+        if request.is_ajax():
+            return HttpResponse("", status=201)
+        else:
+            return redirect(request.META['HTTP_REFERER'])
 
 
 @login_required

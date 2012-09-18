@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+  <div class="span9">
+    <h3>My friends</h3>
+    <div class="friends-list">
+      {% for friendship in user_friends %}
+        <div class="friend span9 well">
+          <span class="friend-name">
+            {{ friendship.friend.username }}
+          </span>
+          <a class="btn pull-right"
+             href="/friends/{{ friendship.friend.username }}">
+            See subreddits
+          </a>
+        </div>
+      {% empty %}
+        Forever alone
+      {% endfor %}      
+    </div>
+  </div>
+</div>
+{% endblock content %}

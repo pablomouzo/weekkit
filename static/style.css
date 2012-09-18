@@ -7,6 +7,18 @@
     margin: 10px;
 }
 
+#subreddit-search {
+    margin: 15px 0;
+}
+
 .search-result .subreddit-link {
     margin: 3px 0;
+}
+
+.friends-list .friend {
+    margin: 3px;
+}
+
+.friends-list .friend-name {
+    margin: 4px 0;
 }
