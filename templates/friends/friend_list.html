@@ -2,11 +2,11 @@
 
 {% block content %}
 <div class="row">
-  <div class="span9">
+  <div class="span7">
     <h3>My friends</h3>
     <div class="friends-list">
       {% for friendship in user_friends %}
-        <div class="friend span9 well">
+        <div class="friend well">
           <span class="friend-name">
             {{ friendship.friend.username }}
           </span>
@@ -19,6 +19,10 @@
         Forever alone
       {% endfor %}      
     </div>
+  </div>
+  <div class="span3">
+    <h3>Add new friends</h3>
+    {% include "friends/includes/add_friend_form.html" with error=error %}
   </div>
 </div>
 {% endblock content %}

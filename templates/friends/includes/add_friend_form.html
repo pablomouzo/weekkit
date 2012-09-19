@@ -1,0 +1,17 @@
+<form class="form" method="POST" action="/friends/add_friend/">
+  {% csrf_token %}
+  <div class="input-append">
+    <input name="username" class="input-xlarge" size="16"
+           type="text" placeholder="Friend's username">
+    <button class="btn">
+      Add friend
+    </button>    
+  </div>
+</form>
+{% if error == "no_friend" %}
+<div class="alert alert-error">
+  <button type="button" class="close" data-dismiss="alert">×</button>
+  <h4>Error</h4>
+  <p>User not found</p>
+</div>
+{% endif %}

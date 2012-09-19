@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 
 from django.test import TestCase
 
+from friends.models import Friendship
 
 class FriendsSubredditsViewTest(TestCase):
     def setUp(self):
@@ -13,3 +14,8 @@ class FriendsSubredditsViewTest(TestCase):
         user2 = User.objects.create_user('janedoe',
                                          'jane@doe.com',
                                          'janedoe')
+
+        Friendship.create_friendship(user1, user2)
+
+    def test_void(self):
+        pass

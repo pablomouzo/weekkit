@@ -22,3 +22,7 @@
 .friends-list .friend-name {
     margin: 4px 0;
 }
+
+input {
+    height: 30px;
+}

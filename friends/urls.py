@@ -6,5 +6,6 @@ from friends.views import UserFriendsListView, UserFriendSubredditsView
 
 urlpatterns = patterns('friends.views',
     url(r'^$', login_required(UserFriendsListView.as_view())),
-    url(r'^(\w+)/$', UserFriendSubredditsView.as_view())                       
+    url(r'^add_friend/$', 'add_friend'),
+    url(r'^(\w+)/$', UserFriendSubredditsView.as_view()),
 )

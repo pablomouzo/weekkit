@@ -20,7 +20,6 @@ class Friendship(models.Model):
         return str(self.friend)
 
 
-
 class FriendRequest(models.Model):
     """ A friend request
 
