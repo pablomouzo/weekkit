@@ -123,6 +123,10 @@ PREREQ_APPS = (
     # 'django.contrib.admindocs',
 )
 
+TESTING_APPS = (
+    'django_coverage',
+)
+
 THIRD_PARTY_APPS = (
     'south',
     'compressor'
@@ -133,7 +137,7 @@ OUR_APPS = (
     'friends',
 )
 
-INSTALLED_APPS = PREREQ_APPS + THIRD_PARTY_APPS + OUR_APPS
+INSTALLED_APPS = PREREQ_APPS + THIRD_PARTY_APPS + OUR_APPS + TESTING_APPS
 
 LOGIN_REDIRECT_URL = '/'
 

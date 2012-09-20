@@ -40,9 +40,25 @@ class AddSubredditViewTest(TestCase):
     
     def test_add_subreddit_ajax(self):
         response = self.client.post("/add_subreddit/",
-                                    {'name': "testsubreddit"},
+                                    {'name': "testsubredditajax"},
                                     HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         
         self.assertEquals(response.status_code, 201)
-        # FIX: use assert not raise
-        self.user.subreddits.get(name="testsubreddit")
+
+        try:
+            self.user.subreddits.get(name="testsubredditajax")
+        except UserSubreddit.DoesNotExist:
+            self.fail("Subreddit wasn't created")
+
+    def test_add_subreddit(self):
+        """ Should create the subreddit and redirect back to the referer """
+        response = self.client.post("/add_subreddit/",
+                                    {'name': "testsubreddit"},
+                                    HTTP_REFERER="/")
+        
+        self.assertRedirects(response, "/")
+
+        try:
+            self.user.subreddits.get(name="testsubreddit")
+        except UserSubreddit.DoesNotExist:
+            self.fail("Subreddit wasn't created")

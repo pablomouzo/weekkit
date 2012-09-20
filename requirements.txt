@@ -1,8 +1,10 @@
 Django==1.4.1
 South==0.7.6
 argparse==1.2.1
+coverage==3.5.2
 django-appconf==0.5
 django-compressor==1.2
+django-coverage==1.2.2
 django-debug-toolbar==0.9.4
 praw==1.0.7
 requests==0.14.0
