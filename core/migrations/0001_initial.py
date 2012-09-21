@@ -11,13 +11,19 @@ class Migration(SchemaMigration):
         # Adding model 'UserSubreddit'
         db.create_table('core_usersubreddit', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
+            ('user', self.gf('django.db.models.fields.related.ForeignKey')(related_name='subreddits', to=orm['auth.User'])),
             ('name', self.gf('django.db.models.fields.CharField')(max_length=200)),
         ))
         db.send_create_signal('core', ['UserSubreddit'])
 
+        # Adding unique constraint on 'UserSubreddit', fields ['user', 'name']
+        db.create_unique('core_usersubreddit', ['user_id', 'name'])
+
 
     def backwards(self, orm):
+        # Removing unique constraint on 'UserSubreddit', fields ['user', 'name']
+        db.delete_unique('core_usersubreddit', ['user_id', 'name'])
+
         # Deleting model 'UserSubreddit'
         db.delete_table('core_usersubreddit')
 
@@ -60,10 +66,10 @@ class Migration(SchemaMigration):
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
         'core.usersubreddit': {
-            'Meta': {'object_name': 'UserSubreddit'},
+            'Meta': {'unique_together': "(('user', 'name'),)", 'object_name': 'UserSubreddit'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']"})
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'subreddits'", 'to': "orm['auth.User']"})
         }
     }
 

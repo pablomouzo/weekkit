@@ -11,10 +11,13 @@ class Migration(SchemaMigration):
         # Adding model 'Friendship'
         db.create_table('friends_friendship', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(related_name='friends', to=orm['auth.User'])),
+            ('user', self.gf('django.db.models.fields.related.ForeignKey')(related_name='friendships', to=orm['auth.User'])),
             ('friend', self.gf('django.db.models.fields.related.ForeignKey')(related_name='+', to=orm['auth.User'])),
         ))
         db.send_create_signal('friends', ['Friendship'])
+
+        # Adding unique constraint on 'Friendship', fields ['user', 'friend']
+        db.create_unique('friends_friendship', ['user_id', 'friend_id'])
 
         # Adding model 'FriendRequest'
         db.create_table('friends_friendrequest', (
@@ -26,6 +29,9 @@ class Migration(SchemaMigration):
 
 
     def backwards(self, orm):
+        # Removing unique constraint on 'Friendship', fields ['user', 'friend']
+        db.delete_unique('friends_friendship', ['user_id', 'friend_id'])
+
         # Deleting model 'Friendship'
         db.delete_table('friends_friendship')
 
@@ -77,10 +83,10 @@ class Migration(SchemaMigration):
             'rto': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'friend_requests_made'", 'to': "orm['auth.User']"})
         },
         'friends.friendship': {
-            'Meta': {'object_name': 'Friendship'},
+            'Meta': {'unique_together': "(('user', 'friend'),)", 'object_name': 'Friendship'},
             'friend': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'+'", 'to': "orm['auth.User']"}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'friends'", 'to': "orm['auth.User']"})
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'friendships'", 'to': "orm['auth.User']"})
         }
     }
 
